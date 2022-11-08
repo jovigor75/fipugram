@@ -2,11 +2,18 @@
   <div class="row">
     <div class="col-2"></div>
     <div class="col-7">
-      <InstagramCard />
-      <InstagramCard />
-      <!--poziv komponente InstagramCard-->
+      <InstagramCard v-for="card in cards" :key="card" :info="card" />
+      <!--poziv komponente InstagramCard. for direktiva se smješta na onaj element koji želimo ponavljati-->
+      <!--url je promjenjljiva koja uzima elemente iz niza cards, jedan po jedan i u ovom slučaju ih prikazuje-->
+      <!--:key je jedinstveni identifikator svakog elementa niza -->
+      <!--:info je parametar preko kojeg se prenosi informacija iz komponente roditelja u komponentu djete. Ovde iz HomeeView komponente u InstagramCard komponentu-->
     </div>
-    <div class="col-3">... ovdje ide Sidebar!</div>
+    <div class="col-3">
+      {{ hello }}
+      <div v-for="card in cards" :key="card" :info="card">
+        {{ card.title }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -16,6 +23,29 @@ import InstagramCard from "@/components/InstagramCard.vue";
 
 export default {
   name: "HomeView", //naziv za view isti kao naziv fajla
+  data() {
+    return {
+      hello: "Sugestion for you",
+      // niz cards je niz  objekat koji maju svojstva title, time, url.
+      cards: [
+        {
+          title: "jedan", // title se prikazuje u headeru
+          time: "an hour ago", // time se prikazuje u footeru
+          url: "https://picsum.photos/id/1/400/400", // url-ovi su adrese slika koje se prikazuju u karticama
+        },
+        {
+          title: "dva",
+          time: "2 days ago",
+          url: "https://picsum.photos/id/2/400/400",
+        },
+        {
+          title: "tri",
+          time: "3 days ago",
+          url: "https://picsum.photos/id/3/400/400",
+        },
+      ],
+    };
+  },
   components: {
     InstagramCard, //komponente koje se koriste u view-u
   },
