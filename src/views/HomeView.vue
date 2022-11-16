@@ -17,6 +17,24 @@
       <div v-for="card in cards" :key="card" :info="card">
         {{ card.title }}
       </div>
+      <form class="d-flex" role="connect">
+        <!-- sa v-model se prenosi ono što se upiše u input polja Ime i Prezime u promjenjljive ime i prezime koja je deklarisana u date funkciji-->
+        <input
+          v-model="ime"
+          class="form-control me-2"
+          type="imetype"
+          placeholder="unesi ime"
+          aria-label="LabelIme"
+        />
+        <input
+          v-model="prezime"
+          class="form-control me-2"
+          type="prezimetype"
+          placeholder="unesi prezime"
+          aria-label="LabelPrezime"
+        />
+      </form>
+      {{ imePrezime }}
     </div>
   </div>
 </template>
@@ -50,9 +68,15 @@ export default {
         },
       ],
       store: store,
+      ime: "",
+      prezime: "",
     };
   },
   computed: {
+    imePrezime() {
+      return this.ime + " " + this.prezime;
+    },
+
     filteredCards() {
       //let termin = this.store.searchTerm;
       //let newCards = [];
