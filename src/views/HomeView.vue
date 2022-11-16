@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-2"></div>
     <div class="col-7">
-      <InstagramCard v-for="card in cards" :key="card" :info="card" />
+      <InstagramCard
+        v-for="card in filteredCards"
+        :key="card.url"
+        :info="card"
+      />
       <!--poziv komponente InstagramCard. for direktiva se smješta na onaj element koji želimo ponavljati-->
       <!--url je promjenjljiva koja uzima elemente iz niza cards, jedan po jedan i u ovom slučaju ih prikazuje-->
       <!--:key je jedinstveni identifikator svakog elementa niza -->
@@ -20,6 +24,7 @@
 <script>
 // @ is an alias to /src. Import komponente
 import InstagramCard from "@/components/InstagramCard.vue";
+import store from "@/store"; // imort store promjenjljive koja je dostupna svim komponentama iz store.js fajla
 
 export default {
   name: "HomeView", //naziv za view isti kao naziv fajla
@@ -44,8 +49,29 @@ export default {
           url: "https://picsum.photos/id/3/400/400",
         },
       ],
+      store: store,
     };
   },
+  computed: {
+    filteredCards() {
+      //let termin = this.store.searchTerm;
+      //let newCards = [];
+
+      return this.cards.filter((card) =>
+        card.title.includes(this.store.searchTerm)
+      );
+
+      /* for (let card of this.cards) {
+        if (card.title.indexOf(termin) >= 0) {
+          newCards.push(card);
+        }
+      }
+      return newCards;
+*/
+      // return this.cards.filter((card) => card.title.includes(store.searchTerm));
+    },
+  },
+
   components: {
     InstagramCard, //komponente koje se koriste u view-u
   },

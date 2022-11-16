@@ -27,7 +27,9 @@
         <li class="nav-item"><router-link to="/signup">Signup</router-link></li>
       </ul>
       <form class="d-flex" role="search">
+        <!-- sa v-model se prenosi ono što se upiše u input polje Search u promjenjljivu searchTerm koja je deklarisana u store.js-->
         <input
+          v-model="searchTerm"
           class="form-control me-2"
           type="search"
           placeholder="Search"
@@ -40,7 +42,16 @@
   <router-view />
 </template>
 
-<script></script>
+<script>
+import store from "@/store.js"; // import kojim se omogućuje dostupnost promjenjljive store koja je dostupna svim komponentama
+
+export default {
+  //vraća se promjenjljiva store
+  data() {
+    return store;
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
