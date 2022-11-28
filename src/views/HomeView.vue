@@ -14,7 +14,7 @@
     </div>
     <div class="col-3">
       {{ hello }}
-      <div v-for="card in cards" :key="card" :info="card">
+      <div v-for="card in cards" :key="card.url" :info="card">
         {{ card.title }}
       </div>
       <form class="d-flex" role="connect">
